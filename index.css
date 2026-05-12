@@ -1,0 +1,11 @@
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#e8f4fd;--sur:#fff;--sur2:#d6ecfb;--bdr:#b8d9f0;
+  --acc:#1565c0;--br:#2196f3;--yl:#ffc107;
+  --red:#f44336;--grn:#00c853;--org:#ff9800;--mut:#5a7a99;
+  --txt:#1a2b42;--r:14px;
+  --fh:'Poppins',sans-serif;--fb:'Nunito',sans-serif;
+  --sh:0 2px 12px rgba(21,101,192,.10)
+}
+html,body,#root{height:100%}
+body{background:var(--bg);color:var(--txt);font-family:var(--fb);font-size:14px}
