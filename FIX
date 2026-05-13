@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>QC Matrix ⭐</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%;font-family:'Nunito',sans-serif;background:#e8f4fd;color:#1a2b42;font-size:14px}
+    #root{min-height:100vh}
+    .lg-bg{min-height:100vh;background:linear-gradient(135deg,#1565c0,#0d47a1 50%,#1a237e);display:flex;align-items:center;justify-content:center;padding:20px}
+    .lg-c{background:#fff;border-radius:20px;padding:40px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(13,71,161,.3)}
+    .lg-l{font-family:'Poppins',sans-serif;font-size:26px;font-weight:800;color:#1565c0;margin-bottom:6px}
+    .lg-l span{color:#ffc107}
+    .lg-s{font-size:13px;color:#5a7a99;margin-bottom:28px;font-weight:500}
+    .fl{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#5a7a99;margin-bottom:6px}
+    .fi{width:100%;background:#f5faff;border:1.5px solid #b8d9f0;border-radius:10px;padding:10px 14px;color:#1a2b42;font-size:14px;font-family:'Nunito',sans-serif;outline:none;margin-bottom:14px;transition:all .15s}
+    .fi:focus{border-color:#2196f3;background:#fff;box-shadow:0 0 0 3px rgba(33,150,243,.1)}
+    .fi-s{width:100%;background:#f5faff;border:1.5px solid #b8d9f0;border-radius:10px;padding:10px 14px;color:#1a2b42;font-size:14px;font-family:'Nunito',sans-serif;outline:none;transition:all .15s}
+    .fi-s:focus{border-color:#2196f3}
+    .fta{width:100%;background:#f5faff;border:1.5px solid #b8d9f0;border-radius:10px;padding:10px 14px;color:#1a2b42;font-size:14px;font-family:'Nunito',sans-serif;outline:none;min-height:80px;resize:vertical}
+    .btn-login{width:100%;background:linear-gradient(135deg,#1e88e5,#1565c0);color:#fff;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif;margin-top:4px}
+    .btn-login:hover{opacity:.92}
+    .err-box{background:#ffebee;border:1.5px solid #ef9a9a;color:#c62828;padding:10px 14px;border-radius:10px;font-size:13px;font-weight:600;margin-bottom:14px}
+    .hint{margin-top:16px;background:#e3f2fd;border-radius:10px;padding:12px 14px;font-size:12px;color:#1565c0;font-weight:600}
+    .hint strong{display:block;margin-bottom:6px;font-size:13px}
+    .hint-row{cursor:pointer;padding:3px 0;text-decoration:underline;opacity:.8}
+    .hint-row:hover{opacity:1}
+    .app{display:flex;min-height:100vh}
+    .sidebar{width:230px;min-height:100vh;background:linear-gradient(180deg,#1565c0,#0d47a1);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;flex-shrink:0;box-shadow:4px 0 20px rgba(21,101,192,.2);z-index:100}
+    .sl{padding:24px 20px 20px;border-bottom:1px solid rgba(255,255,255,.12)}
+    .sl-t{font-family:'Poppins',sans-serif;font-size:17px;font-weight:800;color:#fff}
+    .sl-t span{color:#ffc107}
+    .sl-s{font-size:11px;color:rgba(255,255,255,.5);font-weight:600;margin-top:2px}
+    .ns{padding:16px 14px 4px;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:700}
+    .ni{display:flex;align-items:center;gap:10px;padding:11px 14px;margin:2px 10px;border-radius:10px;cursor:pointer;font-size:14px;color:rgba(255,255,255,.75);font-weight:600;border:none;background:none;width:calc(100% - 20px);text-align:left;transition:all .18s}
+    .ni:hover{background:rgba(255,255,255,.12);color:#fff}
+    .ni.active{background:#fff;color:#1565c0;font-weight:700}
+    .up-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;background:rgba(255,255,255,.12);border-radius:10px;margin:10px;cursor:pointer;border:none;width:calc(100% - 20px);text-align:left}
+    .up-btn:hover{background:rgba(255,255,255,.2)}
+    .un{font-size:13px;font-weight:700;color:#fff}
+    .ur{font-size:10px;color:rgba(255,255,255,.55);font-weight:600;text-transform:uppercase}
+    .av{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#42a5f5,#1565c0);display:inline-flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-size:15px;font-weight:800;color:#fff;flex-shrink:0}
+    .topbar{display:none;align-items:center;gap:12px;padding:14px 16px;background:#fff;border-bottom:1.5px solid #b8d9f0;position:sticky;top:0;z-index:99;box-shadow:0 2px 12px rgba(21,101,192,.1)}
+    .hbg{background:none;border:none;font-size:22px;cursor:pointer;color:#1565c0;padding:4px 8px}
+    .mob-ov{display:none;position:fixed;inset:0;background:rgba(13,71,161,.45);z-index:98}
+    .mob-ov.open{display:block}
+    .mob-sb{position:fixed;left:0;top:0;bottom:0;width:240px;background:linear-gradient(180deg,#1565c0,#0d47a1);z-index:99;overflow-y:auto;transform:translateX(-100%);transition:transform .25s;display:flex;flex-direction:column}
+    .mob-sb.open{transform:translateX(0)}
+    .main-area{flex:1;background:#e8f4fd;padding:28px;overflow-y:auto}
+    .page-title{font-family:'Poppins',sans-serif;font-size:22px;font-weight:800;color:#1a2b42;margin-bottom:4px}
+    .page-sub{font-size:13px;color:#5a7a99;font-weight:600;margin-bottom:24px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+    .stat{background:#fff;border:1.5px solid #b8d9f0;border-radius:14px;padding:20px;box-shadow:0 2px 12px rgba(21,101,192,.1)}
+    .stat-l{font-size:11px;font-weight:700;color:#5a7a99;text-transform:uppercase;letter-spacing:.06em}
+    .stat-v{font-family:'Poppins',sans-serif;font-size:32px;font-weight:800;margin-top:4px}
+    .card{background:#fff;border:1.5px solid #b8d9f0;border-radius:14px;padding:20px;box-shadow:0 2px 12px rgba(21,101,192,.1);margin-bottom:16px}
+    .card-t{font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;color:#5a7a99;margin-bottom:14px;text-transform:uppercase;letter-spacing:.05em}
+    .tw{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:13.5px}
+    th{text-align:left;padding:10px 14px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#5a7a99;font-weight:700;border-bottom:2px solid #b8d9f0;background:#f0f8ff}
+    td{padding:12px 14px;border-bottom:1px solid #b8d9f0;vertical-align:middle}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:#f5fbff}
+    .badge{display:inline-flex;align-items:center;padding:4px 11px;border-radius:99px;font-size:12px;font-weight:700}
+    .badge.on-time,.badge.Approved{background:#e8f5e9;color:#2e7d32}
+    .badge.due-soon{background:#fff8e1;color:#e65100}
+    .badge.overdue{background:#ffebee;color:#c62828}
+    .badge.Submitted{background:#e3f2fd;color:#1565c0}
+    .badge.Draft{background:#f5f5f5;color:#757575}
+    .pb{height:7px;background:#d6ecfb;border-radius:99px;overflow:hidden;width:60px;display:inline-block}
+    .pf{height:100%;border-radius:99px;background:linear-gradient(90deg,#42a5f5,#1565c0)}
+    .btn-p{padding:9px 18px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:none;background:linear-gradient(135deg,#1e88e5,#1565c0);color:#fff;font-family:'Nunito',sans-serif}
+    .btn-p:hover{opacity:.92}
+    .btn-g{padding:9px 18px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;border:1.5px solid #b8d9f0;background:#fff;color:#1565c0;font-family:'Nunito',sans-serif}
+    .btn-g:hover{background:#e3f2fd;border-color:#2196f3}
+    .btn-ok{padding:4px 12px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:none;background:linear-gradient(135deg,#00c853,#00897b);color:#fff;font-family:'Nunito',sans-serif}
+    .btn-sm{padding:4px 12px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #b8d9f0;background:#fff;color:#1565c0;font-family:'Nunito',sans-serif;margin:2px}
+    .btn-sm:hover{background:#e3f2fd;border-color:#2196f3}
+    .btn-del{padding:4px 12px;border-radius:7px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #ffcdd2;background:#ffebee;color:#f44336;font-family:'Nunito',sans-serif;margin:2px}
+    .btn-del:hover{background:#ffcdd2}
+    .row{display:flex;align-items:center;gap:12px}
+    .sp{flex:1}
+    .info-bar{background:#e3f2fd;border:1.5px solid #90caf9;color:#1565c0;padding:12px 16px;border-radius:11px;font-size:13px;font-weight:600;margin-bottom:12px;display:flex;gap:8px;align-items:center}
+    .tabs{display:flex;gap:4px;border-bottom:2px solid #b8d9f0;margin-bottom:20px}
+    .tab{padding:9px 18px;font-size:14px;font-weight:700;cursor:pointer;border:none;background:none;color:#5a7a99;border-bottom:3px solid transparent;margin-bottom:-2px;border-radius:8px 8px 0 0}
+    .tab.active{color:#2196f3;border-bottom-color:#2196f3;background:#e3f2fd}
+    .tab-cnt{font-size:10px;background:#d6ecfb;border-radius:99px;padding:1px 7px;margin-left:5px}
+    .toast{position:fixed;top:20px;right:20px;z-index:9999;padding:12px 20px;border-radius:12px;font-weight:700;font-size:14px;box-shadow:0 4px 20px rgba(0,0,0,.15);display:none;font-family:'Nunito',sans-serif}
+    .toast.ok{background:#e8f5e9;color:#2e7d32;border:1.5px solid #a5d6a7;display:block}
+    .toast.err{background:#ffebee;color:#c62828;border:1.5px solid #ef9a9a;display:block}
+    .empty{text-align:center;padding:48px;color:#5a7a99}
+    .empty-i{font-size:40px;margin-bottom:12px}
+    .modal-bg{position:fixed;inset:0;background:rgba(13,71,161,.4);display:flex;align-items:center;justify-content:center;z-index:1000;padding:16px}
+    .modal{background:#fff;border:1.5px solid #b8d9f0;border-radius:18px;width:100%;max-width:560px;max-height:90vh;overflow-y:auto;padding:28px;position:relative;box-shadow:0 20px 60px rgba(21,101,192,.2)}
+    .modal.wide{max-width:800px}
+    .modal-t{font-family:'Poppins',sans-serif;font-size:19px;font-weight:800;margin-bottom:20px;color:#1a2b42}
+    .modal-x{position:absolute;top:16px;right:16px;background:#f0f8ff;border:1.5px solid #b8d9f0;border-radius:8px;width:32px;height:32px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#5a7a99;z-index:1}
+    .modal-x:hover{background:#ffebee;color:#f44336}
+    .frow{margin-bottom:14px}
+    .fl2{display:block;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#5a7a99;margin-bottom:6px}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .srow{display:flex;align-items:center;justify-content:space-between;padding:11px 0;border-bottom:1px solid #b8d9f0}
+    .srow:last-child{border-bottom:none}
+    .slbl{font-size:13.5px;color:#1a2b42;font-weight:600}
+    .sbts{display:flex;gap:6px}
+    .sbt{width:36px;height:36px;border-radius:9px;border:1.5px solid #b8d9f0;background:#f5faff;color:#5a7a99;font-size:14px;font-weight:700;cursor:pointer;font-family:'Nunito',sans-serif}
+    .sbt:hover{border-color:#2196f3;color:#2196f3;background:#e3f2fd}
+    .sbt.s1.act{background:#f44336;color:#fff;border-color:#f44336}
+    .sbt.s2.act{background:#ff9800;color:#fff;border-color:#ff9800}
+    .sbt.s3.act{background:#ffc107;color:#fff;border-color:#ffc107}
+    .sbt.s4.act{background:#8bc34a;color:#fff;border-color:#8bc34a}
+    .sbt.s5.act{background:#00c853;color:#fff;border-color:#00c853}
+    .wiz-steps{display:flex;align-items:center;margin-bottom:24px}
+    .wiz-step{display:flex;align-items:center;gap:8px;flex:1}
+    .wiz-c{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;flex-shrink:0}
+    .wiz-c.done{background:#00c853;color:#fff}
+    .wiz-c.active{background:#2196f3;color:#fff}
+    .wiz-c.pend{background:#e0e0e0;color:#9e9e9e}
+    .wiz-l{font-size:12px;font-weight:700;color:#5a7a99}
+    .wiz-l.active{color:#2196f3}
+    .wiz-line{flex:1;height:2px;background:#b8d9f0;margin:0 8px}
+    .wiz-line.done{background:#00c853}
+    .cat-tag{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;background:#e8f4fd;border-radius:9px;font-size:13px;font-weight:600;border:1.5px solid #b8d9f0;margin:4px}
+    .loading-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:16px;background:#e8f4fd}
+    .spin{display:inline-block;width:36px;height:36px;border:4px solid rgba(21,101,192,.15);border-top-color:#2196f3;border-radius:50%;animation:sp .7s linear infinite}
+    @keyframes sp{to{transform:rotate(360deg)}}
+    @media(max-width:768px){
+      .sidebar{display:none}
+      .topbar{display:flex}
+      .stats{grid-template-columns:repeat(2,1fr)}
+      .main-area{padding:16px}
+      .grid2{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<div id="toast" class="toast"></div>
+
+<script>
+// ══════════════════════
+// SUPABASE
+// ══════════════════════
+const SURL = "https://njblmbumywwcjwtybmmz.supabase.co";
+const SKEY = "sb_publishable_lgAEKgxrbYhZVqvLEJTlbg_v2DDQCfU";
+
+async function sbFetch(path, opts={}) {
+  const r = await fetch(`${SURL}/rest/v1/${path}`, {
+    headers: { apikey:SKEY, Authorization:`Bearer ${SKEY}`, "Content-Type":"application/json", Prefer: opts.prefer||"return=representation", ...opts.headers },
+    ...opts
+  });
+  if(!r.ok){ const e=await r.json().catch(()=>{}); throw new Error((e&&e.message)||"Request failed: "+r.status); }
+  const t=await r.text(); return t?JSON.parse(t):[];
+}
+
+const DB = {
+  login:      (e,p) => sbFetch(`users?email=eq.${encodeURIComponent(e)}&select=*`).then(r=>{ if(!r.length) throw new Error("Email tidak ditemukan"); if(r[0].password!==p) throw new Error("Password salah"); return r[0]; }),
+  mitras:     ()    => sbFetch("mitras?select=*&order=name"),
+  addMitra:   (d)   => sbFetch("mitras",{method:"POST",body:JSON.stringify({name:d.name,employee_id:d.eid,join_date:d.jd||null})}),
+  editMitra:  (id,d)=> sbFetch(`mitras?id=eq.${id}`,{method:"PATCH",body:JSON.stringify({name:d.name,employee_id:d.eid,join_date:d.jd||null})}),
+  delMitra:   (id)  => sbFetch(`mitras?id=eq.${id}`,{method:"DELETE",prefer:"return=minimal"}),
+  cats:       ()    => sbFetch("categories?select=*&order=sort_order,name"),
+  subs:       ()    => sbFetch("sub_competencies?select=*&order=sort_order,name"),
+  evals:      ()    => sbFetch("evaluations?select=*&order=eval_date.desc"),
+  scores:     ()    => sbFetch("evaluation_scores?select=*"),
+  addEval:    (d)   => sbFetch("evaluations",{method:"POST",body:JSON.stringify({mitra_id:d.mitraId,officer_id:d.officerId,status:d.status,eval_date:d.date,notes:d.notes||""})}),
+  editEval:   (id,d)=> sbFetch(`evaluations?id=eq.${id}`,{method:"PATCH",body:JSON.stringify({status:d.status,eval_date:d.date,notes:d.notes||""})}),
+  setStatus:  (id,s)=> sbFetch(`evaluations?id=eq.${id}`,{method:"PATCH",body:JSON.stringify({status:s})}),
+  addScores:  (eid,sc)=> sbFetch("evaluation_scores",{method:"POST",body:JSON.stringify(Object.entries(sc).map(([sid,score])=>({evaluation_id:eid,sub_competency_id:sid,score})))}),
+  delScores:  (eid) => sbFetch(`evaluation_scores?evaluation_id=eq.${eid}`,{method:"DELETE",prefer:"return=minimal"}),
+};
+
+// ══════════════════════
+// STATE
+// ══════════════════════
+let S = { user:null, page:"dashboard", mob:false, modal:null, loading:false, evalTab:"all",
+          mitras:[], cats:[], subs:[], evals:[], scores:[] };
+
+function set(patch){ Object.assign(S, typeof patch==="function"?patch(S):patch); draw(); }
+
+// ══════════════════════
+// HELPERS
+// ══════════════════════
+const today = new Date();
+const avg = sc => { const v=Object.values(sc); return v.length?(v.reduce((a,b)=>a+b,0)/v.length).toFixed(1):0; };
+const status = d => { if(!d) return "overdue"; const days=(today-new Date(d))/86400000; return days<=50?"on-time":days<=60?"due-soon":"overdue"; };
+const nextDue = d => { if(!d)return"—"; const x=new Date(d); x.setDate(x.getDate()+60); return x.toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"}); };
+const fmt = d => d?new Date(d).toLocaleDateString("id-ID",{day:"2-digit",month:"short",year:"numeric"}):"—";
+const ini = n => n?n[0].toUpperCase():"?";
+
+let _toast;
+function toast(msg, type="ok"){ const t=document.getElementById("toast"); t.textContent=msg; t.className="toast "+type; clearTimeout(_toast); _toast=setTimeout(()=>t.className="toast",3000); }
+
+async function load(){
+  set({loading:true});
+  try{
+    const [mitras,cats,subs,evals,scores] = await Promise.all([DB.mitras(),DB.cats(),DB.subs(),DB.evals(),DB.scores()]);
+    set({mitras,cats,subs,evals,scores,loading:false});
+  }catch(e){ toast("Gagal load: "+e.message,"err"); set({loading:false}); }
+}
+
+function scoreMap(){ const m={}; S.scores.forEach(s=>{ if(!m[s.evaluation_id])m[s.evaluation_id]={}; m[s.evaluation_id][s.sub_competency_id]=s.score; }); return m; }
+function richEvals(){ const sm=scoreMap(); return S.evals.map(e=>({...e,scores:sm[e.id]||{}})); }
+function catsWithSubs(){ return S.cats.map(c=>({...c,subs:S.subs.filter(s=>s.category_id===c.id)})); }
+function mStats(){
+  const re=richEvals();
+  return S.mitras.map(m=>{
+    const ok=re.filter(e=>e.mitra_id===m.id&&e.status==="Approved").sort((a,b)=>new Date(b.eval_date)-new Date(a.eval_date));
+    const last=ok[0]||null;
+    return {...m,last,evalStatus:status(last?.eval_date),nextDue:nextDue(last?.eval_date),avgScore:last?avg(last.scores):null};
+  });
+}
+
+// ══════════════════════
+// DOM HELPERS
+// ══════════════════════
+function el(tag,attrs,html){
+  const e=document.createElement(tag);
+  if(attrs) for(const [k,v] of Object.entries(attrs)){
+    if(k==="class")e.className=v;
+    else if(k.startsWith("on"))e[k]=v;
+    else e.setAttribute(k,v);
+  }
+  if(html!==undefined) e.innerHTML=html;
+  return e;
+}
+function div(cls,html){ return el("div",{class:cls},html); }
+function mk(tag,cls,html){ return el(tag,{class:cls},html); }
+function btn(cls,html,fn){ const b=el("button",{class:cls},html); b.onclick=fn; return b; }
+function append(parent,...children){ children.flat().forEach(c=>c&&parent.appendChild(c)); return parent; }
+function av(n,sz=36){ const d=el("div",{class:"av",style:`width:${sz}px;height:${sz}px;font-size:${Math.round(sz*0.4)}px`}); d.textContent=ini(n); return d; }
+
+// ══════════════════════
+// DRAW
+// ══════════════════════
+function draw(){
+  const root=document.getElementById("root");
+  root.innerHTML="";
+  if(!S.user){ root.appendChild(drawLogin()); return; }
+  if(S.loading){ root.appendChild(drawLoading()); return; }
+  root.appendChild(drawApp());
+  if(S.modal) document.body.appendChild(drawModal());
+}
+
+// ══════════════════════
+// LOGIN
+// ══════════════════════
+function drawLogin(){
+  const wrap=div("lg-bg");
+  const card=div("lg-c");
+  const logo=div("lg-l"); logo.innerHTML='QC <span>Matrix</span> ⭐'; card.appendChild(logo);
+  card.appendChild(mk("p","lg-s","Central Kitchen · Skill Tracker"));
+
+  const errBox=div("err-box"); errBox.style.display="none"; card.appendChild(errBox);
+
+  const emailI=el("input",{class:"fi",type:"email",placeholder:"your@email.com"});
+  const pwI=el("input",{class:"fi",type:"password",placeholder:"••••••••"});
+
+  const ef=div("frow"); append(ef,mk("label","fl","Email"),emailI); card.appendChild(ef);
+  const pf=div("frow"); append(pf,mk("label","fl","Password"),pwI); card.appendChild(pf);
+
+  const loginBtn=btn("btn-login","Sign In →",async()=>{
+    errBox.style.display="none"; loginBtn.textContent="Masuk…"; loginBtn.disabled=true;
+    try{ const u=await DB.login(emailI.value.trim(),pwI.value); set({user:u}); await load(); }
+    catch(e){ errBox.textContent=e.message; errBox.style.display="block"; loginBtn.textContent="Sign In →"; loginBtn.disabled=false; }
+  });
+  pwI.onkeydown=e=>e.key==="Enter"&&loginBtn.click();
+  card.appendChild(loginBtn);
+
+  const hint=div("hint"); hint.innerHTML="<strong>Demo Accounts:</strong>";
+  const r1=div("hint-row"); r1.textContent="👑 Lead QC: lead@qc.com / lead123"; r1.onclick=()=>{emailI.value="lead@qc.com";pwI.value="lead123";}; hint.appendChild(r1);
+  const r2=div("hint-row"); r2.textContent="🔵 Officer: officer1@qc.com / officer123"; r2.onclick=()=>{emailI.value="officer1@qc.com";pwI.value="officer123";}; hint.appendChild(r2);
+  card.appendChild(hint);
+
+  wrap.appendChild(card); return wrap;
+}
+
+// ══════════════════════
+// LOADING
+// ══════════════════════
+function drawLoading(){
+  const w=div("loading-wrap");
+  w.innerHTML='<div class="spin"></div><div style="color:#5a7a99;font-weight:600">Memuat data…</div>';
+  return w;
+}
+
+// ══════════════════════
+// APP SHELL
+// ══════════════════════
+function drawApp(){
+  const ms=mStats(), re=richEvals(), cs=catsWithSubs();
+  const counts={total:S.mitras.length,onTime:ms.filter(m=>m.evalStatus==="on-time").length,dueSoon:ms.filter(m=>m.evalStatus==="due-soon").length,overdue:ms.filter(m=>m.evalStatus==="overdue").length,pending:re.filter(e=>e.status==="Submitted").length};
+
+  const wrap=div("");
+  const appDiv=div("app");
+
+  // Sidebar desktop
+  const sb=div("sidebar"); append(sb,drawNav()); appDiv.appendChild(sb);
+
+  // Mobile overlay
+  const ov=el("div",{class:"mob-ov"+(S.mob?" open":"")}); ov.onclick=()=>set({mob:false}); appDiv.appendChild(ov);
+  const msb=el("div",{class:"mob-sb"+(S.mob?" open":"")}); append(msb,drawNav(true)); appDiv.appendChild(msb);
+
+  // Main
+  const mainDiv=div(""); mainDiv.style.flex="1"; mainDiv.style.minWidth="0";
+
+  // Topbar
+  const tb=div("topbar");
+  const hb=btn("hbg","☰",()=>set({mob:true})); tb.appendChild(hb);
+  tb.innerHTML+='<span style="font-family:Poppins,sans-serif;font-size:15px;font-weight:800">QC <span style="color:#ffc107">Matrix</span></span>';
+  const avTop=av(S.user.name,30); avTop.style.marginLeft="auto"; tb.appendChild(avTop);
+  mainDiv.appendChild(tb);
+
+  const pageWrap=div("main-area");
+  if(S.page==="dashboard")   pageWrap.appendChild(drawDash(ms,re,counts));
+  else if(S.page==="mitras") pageWrap.appendChild(drawMitras(ms));
+  else if(S.page==="evals")  pageWrap.appendChild(drawEvals(re));
+  else if(S.page==="comps")  pageWrap.appendChild(drawComps(cs));
+  else if(S.page==="heatmap")pageWrap.appendChild(drawHeatmap(ms,cs));
+  mainDiv.appendChild(pageWrap);
+  appDiv.appendChild(mainDiv);
+  wrap.appendChild(appDiv);
+  return wrap;
+}
+
+// ══════════════════════
+// NAV
+// ══════════════════════
+function drawNav(isMob=false){
+  const nav=div(""); nav.style.cssText="display:flex;flex-direction:column;height:100%";
+  const sl=div("sl"); sl.innerHTML='<div class="sl-t">QC <span>Matrix</span> ⭐</div><div class="sl-s">Central Kitchen · Skill Tracker</div>';
+  nav.appendChild(sl);
+  const nl=div(""); nl.style.cssText="padding:12px 0;flex:1";
+  nl.appendChild(mk("div","ns","Navigation"));
+  [["dashboard","🏠","Dashboard"],["mitras","👥","Mitra List"],["evals","📋","Evaluations"],["comps","📚","Competencies"],["heatmap","🗺️","Skill Heatmap"]].forEach(([id,icon,label])=>{
+    const b=btn(`ni${S.page===id?" active":""}`,"",()=>set({page:id,mob:false}));
+    b.innerHTML=`${icon} ${label}`;
+    nl.appendChild(b);
+  });
+  nav.appendChild(nl);
+  const bot=div(""); bot.style.borderTop="1px solid rgba(255,255,255,.12)"; bot.style.paddingBottom="12px";
+  bot.appendChild(mk("div","ns","Signed In As"));
+  const ub=btn("up-btn","",()=>{ S.user=null; S.mitras=[]; S.cats=[]; S.subs=[]; S.evals=[]; S.scores=[]; set({user:null}); });
+  append(ub, av(S.user.name,30), (()=>{ const d=div(""); d.innerHTML=`<div class="un">${S.user.name}</div><div class="ur">${S.user.role==="lead"?"Junior Lead QC":"QC Officer"} · Logout</div>`; return d; })());
+  bot.appendChild(ub); nav.appendChild(bot);
+  return nav;
+}
+
+// ══════════════════════
+// DASHBOARD
+// ══════════════════════
+function drawDash(ms,re,counts){
+  const pg=div("");
+  // Header
+  const ph=div("row"); ph.style.marginBottom="24px";
+  const hd=div(""); hd.innerHTML=`<div class="page-title">👋 Welcome, ${S.user.name.split(" ")[0]}!</div><div class="page-sub">Central Kitchen QC · Monitoring Dashboard</div>`;
+  append(ph, hd, div("sp"));
+  if(S.user.role==="officer") ph.appendChild(btn("btn-p","+ New Evaluation",()=>set({modal:{type:"eval-wizard",data:{}}})));
+  pg.appendChild(ph);
+
+  // Stats
+  const sr=div("stats");
+  [[counts.total,"Total Mitra","#2196f3"],[counts.onTime,"✅ On Time","#00c853"],[counts.dueSoon,"⏳ Due Soon","#ff9800"],[counts.overdue,"⚠️ Overdue","#f44336"]].forEach(([v,l,c])=>{
+    const sc=div("stat"); sc.appendChild(mk("div","stat-l",l)); const sv=mk("div","stat-v",v); sv.style.color=c; sc.appendChild(sv); sr.appendChild(sc);
+  }); pg.appendChild(sr);
+
+  if(S.user.role==="lead"&&counts.pending>0){
+    const al=div("info-bar"); al.innerHTML=`📋 <strong>${counts.pending} evaluation(s) pending approval</strong>`;
+    const rb=btn("btn-sm","Review →",()=>set({page:"evals"})); al.appendChild(rb); pg.appendChild(al);
+  }
+
+  // Table
+  const card=div("card"); card.appendChild(mk("div","card-t","📋 Mitra Evaluation Tracker"));
+  const tw=div("tw"); const tbl=el("table");
+  tbl.innerHTML="<thead><tr><th>Mitra</th><th>ID</th><th>Last Eval</th><th>Next Due</th><th>Avg Score</th><th>Status</th><th></th></tr></thead>";
+  const tb2=el("tbody");
+  ms.forEach(m=>{
+    const tr=el("tr");
+    const nc=div("row"); append(nc,av(m.name),el("span",{style:"font-weight:600"},m.name)); tr.appendChild(el("td",{},nc));
+    tr.appendChild(el("td",{style:"color:#5a7a99;font-size:12px"},m.employee_id||"—"));
+    const ltd=el("td"); ltd.innerHTML=m.last?fmt(m.last.eval_date):'<span style="color:#f44336">Never</span>'; tr.appendChild(ltd);
+    tr.appendChild(el("td",{style:"font-size:12px"},m.nextDue));
+    const scd=el("td");
+    if(m.avgScore){ const r=div("row"); const pb=div("pb"); const pf=div("pf"); pf.style.width=`${(m.avgScore/5)*100}%`; pb.appendChild(pf); append(r,pb,el("span",{style:"font-size:12px;font-weight:700"},m.avgScore)); scd.appendChild(r); }
+    else scd.innerHTML='<span style="color:#5a7a99">—</span>';
+    tr.appendChild(scd);
+    const btext=m.evalStatus==="on-time"?"✅ On Time":m.evalStatus==="due-soon"?"⏳ Due Soon":"⚠️ Overdue";
+    tr.appendChild(el("td",{},el("span",{class:`badge ${m.evalStatus}`},btext)));
+    tr.appendChild(el("td",{},btn("btn-sm","View",()=>set({modal:{type:"mitra-detail",data:m}}))));
+    tb2.appendChild(tr);
+  });
+  tbl.appendChild(tb2); tw.appendChild(tbl); card.appendChild(tw); pg.appendChild(card);
+
+  // Recent evals
+  const card2=div("card"); card2.appendChild(mk("div","card-t","🕒 Recent Evaluations"));
+  const tw2=div("tw"); const tbl2=el("table");
+  tbl2.innerHTML="<thead><tr><th>Mitra</th><th>Date</th><th>Score</th><th>Status</th><th></th></tr></thead>";
+  const tb3=el("tbody");
+  re.slice(0,6).forEach(e=>{
+    const m=S.mitras.find(x=>x.id===e.mitra_id); const tr=el("tr");
+    const nc=div("row"); append(nc,av(m?.name||"?"),el("span",{style:"font-weight:600"},m?.name||"—")); tr.appendChild(el("td",{},nc));
+    tr.appendChild(el("td",{style:"font-size:12px"},fmt(e.eval_date)));
+    tr.appendChild(el("td",{style:"font-weight:700"},avg(e.scores)+"/5"));
+    tr.appendChild(el("td",{},el("span",{class:`badge ${e.status}`},e.status)));
+    tr.appendChild(el("td",{},btn("btn-sm","Details",()=>set({modal:{type:"eval-detail",data:e}}))));
+    tb3.appendChild(tr);
+  });
+  tbl2.appendChild(tb3); tw2.appendChild(tbl2); card2.appendChild(tw2); pg.appendChild(card2);
+  return pg;
+}
+
+// ══════════════════════
+// MITRAS
+// ══════════════════════
+function drawMitras(ms){
+  const pg=div("");
+  const ph=div("row"); ph.style.marginBottom="24px";
+  ph.innerHTML='<div class="page-title">👥 Mitra List</div><div class="sp"></div>';
+  ph.appendChild(btn("btn-p","+ Add Mitra",()=>set({modal:{type:"mitra-form",data:null}})));
+  pg.appendChild(ph);
+
+  const card=div("card"); card.appendChild(mk("div","card-t","All Mitra"));
+  const tw=div("tw"); const tbl=el("table");
+  tbl.innerHTML="<thead><tr><th>Mitra</th><th>ID</th><th>Join Date</th><th>Last Eval</th><th>Score</th><th>Status</th><th>Actions</th></tr></thead>";
+  const tb=el("tbody");
+  if(!ms.length){ const tr=el("tr"); const td=el("td"); td.setAttribute("colspan","7"); td.innerHTML='<div class="empty"><div class="empty-i">👥</div>Belum ada mitra.</div>'; tr.appendChild(td); tb.appendChild(tr); }
+  ms.forEach(m=>{
+    const tr=el("tr");
+    const nc=div("row"); append(nc,av(m.name),el("span",{style:"font-weight:600"},m.name)); tr.appendChild(el("td",{},nc));
+    tr.appendChild(el("td",{style:"color:#5a7a99;font-size:12px"},m.employee_id||"—"));
+    tr.appendChild(el("td",{style:"color:#5a7a99;font-size:12px"},m.join_date||"—"));
+    const ltd=el("td"); ltd.innerHTML=m.last?fmt(m.last.eval_date):'<span style="color:#f44336">Never</span>'; tr.appendChild(ltd);
+    tr.appendChild(el("td",{style:"font-weight:700"},m.avgScore||"—"));
+    const btext=m.evalStatus==="on-time"?"✅ On Time":m.evalStatus==="due-soon"?"⏳ Due Soon":"⚠️ Overdue";
+    tr.appendChild(el("td",{},el("span",{class:`badge ${m.evalStatus}`},btext)));
+    const acts=div(""); acts.style.display="flex"; acts.style.gap="4px"; acts.style.flexWrap="wrap";
+    acts.appendChild(btn("btn-sm","View",()=>set({modal:{type:"mitra-detail",data:m}})));
+    acts.appendChild(btn("btn-sm","Evaluate",()=>set({modal:{type:"eval-wizard",data:{mitraId:m.id}}})));
+    acts.appendChild(btn("btn-sm","Edit",()=>set({modal:{type:"mitra-form",data:m}})));
+    acts.appendChild(btn("btn-del","Delete",async()=>{ if(!confirm("Hapus mitra ini?"))return; try{ await DB.delMitra(m.id); toast("Mitra dihapus"); await load(); }catch(e){toast(e.message,"err");} }));
+    tr.appendChild(el("td",{},acts)); tb.appendChild(tr);
+  });
+  tbl.appendChild(tb); tw.appendChild(tbl); card.appendChild(tw); pg.appendChild(card);
+  return pg;
+}
+
+// ══════════════════════
+// EVALUATIONS
+// ══════════════════════
+function drawEvals(re){
+  const pg=div("");
+  const ph=div("row"); ph.style.marginBottom="24px";
+  ph.innerHTML='<div class="page-title">📋 Evaluations</div><div class="sp"></div>';
+  ph.appendChild(btn("btn-p","+ New Evaluation",()=>set({modal:{type:"eval-wizard",data:{}}})));
+  pg.appendChild(ph);
+
+  const tabs=["all","Draft","Submitted","Approved"];
+  const tabRow=div("tabs");
+  tabs.forEach(t=>{
+    const cnt=t==="all"?re.length:re.filter(e=>e.status===t).length;
+    const tb=btn(`tab${S.evalTab===t?" active":""}`,"",()=>set({evalTab:t}));
+    tb.innerHTML=`${t==="all"?"All":t}<span class="tab-cnt">${cnt}</span>`;
+    tabRow.appendChild(tb);
+  }); pg.appendChild(tabRow);
+
+  const list=re.filter(e=>S.evalTab==="all"||e.status===S.evalTab);
+  const card=div("card"); const tw=div("tw"); const tbl=el("table");
+  tbl.innerHTML="<thead><tr><th>Mitra</th><th>Date</th><th>Score</th><th>Notes</th><th>Status</th><th>Actions</th></tr></thead>";
+  const tb2=el("tbody");
+  if(!list.length){ const tr=el("tr"); const td=el("td"); td.setAttribute("colspan","6"); td.innerHTML='<div class="empty"><div class="empty-i">📋</div>Tidak ada evaluasi.</div>'; tr.appendChild(td); tb2.appendChild(tr); }
+  list.forEach(e=>{
+    const m=S.mitras.find(x=>x.id===e.mitra_id); const tr=el("tr");
+    const nc=div("row"); append(nc,av(m?.name||"?"),el("span",{style:"font-weight:600"},m?.name||"Unknown")); tr.appendChild(el("td",{},nc));
+    tr.appendChild(el("td",{style:"font-size:12px"},fmt(e.eval_date)));
+    tr.appendChild(el("td",{style:"font-weight:700"},avg(e.scores)+"/5"));
+    tr.appendChild(el("td",{style:"font-size:12px;color:#5a7a99;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"},e.notes||"—"));
+    tr.appendChild(el("td",{},el("span",{class:`badge ${e.status}`},e.status)));
+    const acts=div(""); acts.style.display="flex"; acts.style.gap="4px";
+    acts.appendChild(btn("btn-sm","Details",()=>set({modal:{type:"eval-detail",data:e}})));
+    if(S.user.role==="lead"&&e.status==="Submitted") acts.appendChild(btn("btn-ok","✅ Approve",async()=>{ try{ await DB.setStatus(e.id,"Approved"); toast("Approved ✅"); await load(); }catch(ex){toast(ex.message,"err");} }));
+    if(e.status!=="Approved") acts.appendChild(btn("btn-sm","Edit",()=>set({modal:{type:"eval-wizard",data:e}})));
+    tr.appendChild(el("td",{},acts)); tb2.appendChild(tr);
+  });
+  tbl.appendChild(tb2); tw.appendChild(tbl); card.appendChild(tw); pg.appendChild(card);
+  return pg;
+}
+
+// ══════════════════════
+// COMPETENCIES
+// ══════════════════════
+function drawComps(cs){
+  const pg=div("");
+  const ph=div("row"); ph.style.marginBottom="24px";
+  ph.innerHTML='<div class="page-title">📚 Competency Framework</div><div class="sp"></div>';
+  pg.appendChild(ph);
+  cs.forEach(cat=>{
+    const card=div("card");
+    const cr=div("row"); cr.style.marginBottom="12px";
+    cr.innerHTML=`<strong style="font-size:16px;font-family:Poppins,sans-serif">${cat.name}</strong><span style="background:#d6ecfb;border-radius:99px;padding:2px 10px;font-size:11px;font-weight:700;color:#5a7a99">${cat.subs.length} competencies</span>`;
+    card.appendChild(cr);
+    const grid=div(""); grid.style.display="flex"; grid.style.flexWrap="wrap";
+    cat.subs.forEach(s=>{ const t=mk("span","cat-tag","▸ "+s.name); grid.appendChild(t); });
+    card.appendChild(grid); pg.appendChild(card);
+  });
+  return pg;
+}
+
+// ══════════════════════
+// HEATMAP
+// ══════════════════════
+function drawHeatmap(ms,cs){
+  const allSubs=cs.flatMap(c=>c.subs);
+  const hc=s=>!s?"#e0e0e0":s>=4.5?"#00c853":s>=3.5?"#64dd17":s>=2.5?"#ffc107":s>=1.5?"#ff9800":"#f44336";
+  const pg=div("");
+  pg.innerHTML='<div class="page-title">🗺️ Skill Heatmap</div><div class="page-sub">Competency gaps across the team</div>';
+  const leg=div("row"); leg.style.cssText="flex-wrap:wrap;margin-bottom:16px";
+  [["#f44336","1"],["#ff9800","2"],["#ffc107","3"],["#64dd17","4"],["#00c853","5"],["#e0e0e0","No data"]].forEach(([c,l])=>{
+    const item=div("row"); item.style.cssText="gap:5px;font-size:12px;font-weight:600;margin-right:12px";
+    const box=div(""); box.style.cssText=`width:16px;height:16px;border-radius:4px;background:${c};flex-shrink:0`; item.appendChild(box); item.appendChild(document.createTextNode(l)); leg.appendChild(item);
+  }); pg.appendChild(leg);
+  const card=div("card"); card.style.overflowX="auto";
+  const tbl=el("table"); tbl.style.cssText="border-collapse:separate;border-spacing:4px";
+  const thead=el("thead");
+  const tr1=el("tr"); tr1.appendChild(el("th",{style:"min-width:140px"},"Mitra"));
+  cs.forEach(cat=>{ tr1.appendChild(el("th",{colspan:String(cat.subs.length),style:"text-align:center;background:#e3f2fd;font-size:10px;color:#1565c0;padding:4px 6px;border-radius:6px"},cat.name.replace(" Process",""))); });
+  thead.appendChild(tr1);
+  const tr2=el("tr"); tr2.appendChild(el("th",{},""));
+  allSubs.forEach(s=>{ tr2.appendChild(el("th",{style:"font-size:9px;color:#5a7a99;padding:4px;text-align:center"},s.name.length>11?s.name.slice(0,10)+"…":s.name)); });
+  thead.appendChild(tr2); tbl.appendChild(thead);
+  const tbody=el("tbody");
+  ms.forEach(m=>{
+    const tr=el("tr");
+    const nc=div("row"); append(nc,av(m.name,28),document.createTextNode(m.name));
+    tr.appendChild(el("td",{style:"font-weight:700;font-size:13px;padding:6px 10px;white-space:nowrap"},nc));
+    allSubs.forEach(sub=>{
+      const s=m.last?(m.last.scores[sub.id]||0):null;
+      const cell=div(""); cell.style.cssText=`width:42px;height:32px;border-radius:7px;background:${hc(s)};display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800;margin:0 auto`; cell.textContent=s||"—";
+      tr.appendChild(el("td",{style:"padding:3px;text-align:center"},cell));
+    });
+    tbody.appendChild(tr);
+  });
+  tbl.appendChild(tbody); card.appendChild(tbl); pg.appendChild(card);
+  return pg;
+}
+
+// ══════════════════════
+// MODALS
+// ══════════════════════
+function drawModal(){
+  const bg=div("modal-bg"); bg.onclick=e=>{ if(e.target===bg) set({modal:null}); };
+  const m=S.modal; let content;
+  const cs=catsWithSubs(), ms2=mStats(), re=richEvals();
+  if(m.type==="mitra-form")    content=modalMitraForm(m.data);
+  else if(m.type==="mitra-detail") content=modalMitraDetail(m.data,re.filter(e=>e.mitra_id===m.data.id),cs);
+  else if(m.type==="eval-detail")  content=modalEvalDetail(m.data,cs);
+  else if(m.type==="eval-wizard")  content=modalEvalWizard(m.data,cs);
+  if(content) bg.appendChild(content);
+  return bg;
+}
+
+function baseModal(title,wide=false){
+  const mo=el("div",{class:"modal"+(wide?" wide":"")});
+  const x=btn("modal-x","✕",()=>set({modal:null})); mo.appendChild(x);
+  if(title) mo.appendChild(mk("div","modal-t",title));
+  return mo;
+}
+
+function modalMitraForm(data){
+  const mo=baseModal(data?"Edit Mitra":"Add New Mitra");
+  const nameI=el("input",{class:"fi-s",placeholder:"e.g. Andi Pratama",value:data?.name||""}); nameI.style.marginBottom="14px";
+  const eidI=el("input",{class:"fi-s",placeholder:"QCM-00X",value:data?.employee_id||""});
+  const jdI=el("input",{class:"fi-s",type:"date",value:data?.join_date||""});
+  const f1=div("frow"); append(f1,mk("label","fl2","Full Name *"),nameI); mo.appendChild(f1);
+  const g=div("grid2");
+  const f2=div("frow"); append(f2,mk("label","fl2","Employee ID"),eidI); g.appendChild(f2);
+  const f3=div("frow"); append(f3,mk("label","fl2","Join Date"),jdI); g.appendChild(f3);
+  mo.appendChild(g);
+  const row=div("row"); row.style.marginTop="16px";
+  append(row,btn("btn-g","Cancel",()=>set({modal:null})),div("sp"),btn("btn-p",data?"Save Changes":"Add Mitra",async()=>{
+    if(!nameI.value.trim()) return;
+    try{ if(data?.id) await DB.editMitra(data.id,{name:nameI.value.trim(),eid:eidI.value.trim(),jd:jdI.value}); else await DB.addMitra({name:nameI.value.trim(),eid:eidI.value.trim(),jd:jdI.value}); toast(data?.id?"Mitra updated ✅":"Mitra added ✅"); await load(); set({modal:null}); }catch(e){toast(e.message,"err");}
+  }));
+  mo.appendChild(row); return mo;
+}
+
+function modalMitraDetail(mitra,evals,cs){
+  const mo=baseModal("",true);
+  const hdr=div("row"); hdr.style.marginBottom="20px";
+  append(hdr,av(mitra.name,50),(()=>{const d=div(""); d.innerHTML=`<div style="font-family:Poppins,sans-serif;font-weight:800;font-size:18px">${mitra.name}</div><div style="font-size:12px;color:#5a7a99;margin-top:2px">${mitra.employee_id||""} · Joined ${mitra.join_date||"—"}</div>`; return d;})(),div("sp"),el("span",{class:`badge ${mitra.evalStatus}`},mitra.evalStatus==="on-time"?"✅ On Time":mitra.evalStatus==="due-soon"?"⏳ Due Soon":"⚠️ Overdue"),btn("btn-p","+ Evaluate",()=>{set({modal:{type:"eval-wizard",data:{mitraId:mitra.id}}});}));
+  mo.appendChild(hdr);
+  const last=evals.filter(e=>e.status==="Approved").sort((a,b)=>new Date(b.eval_date)-new Date(a.eval_date))[0];
+  if(!last){ mo.appendChild(div("empty","<div class='empty-i'>📊</div>No approved evaluations yet.")); return mo; }
+  mo.appendChild(mk("div","",`<div style="font-weight:800;font-size:13px;color:#5a7a99;text-transform:uppercase;margin-bottom:12px">Latest Scores — ${fmt(last.eval_date)} · Overall: <span style="color:#2196f3">${avg(last.scores)}/5</span></div>`));
+  cs.forEach(cat=>{
+    mo.appendChild(mk("div","",`<div style="font-family:Poppins,sans-serif;font-weight:800;font-size:13px;color:#1565c0;margin-bottom:8px;margin-top:12px">${cat.name}</div>`));
+    cat.subs.forEach(sub=>{
+      const s=last.scores[sub.id]||0;
+      const sr=div("srow"); sr.appendChild(mk("span","slbl",sub.name));
+      const dots=div(""); dots.style.display="flex"; dots.style.gap="6px";
+      [1,2,3,4,5].forEach(v=>{ const d=div(""); d.style.cssText=`width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:${v===s?(v>=4?"#00c853":v>=3?"#ff9800":"#f44336"):"#d6ecfb"};color:${v===s?"#fff":"#5a7a99"};font-weight:800;font-size:13px;border:1.5px solid ${v===s?"transparent":"#b8d9f0"}`; d.textContent=v; dots.appendChild(d); });
+      sr.appendChild(dots); mo.appendChild(sr);
+    });
+  });
+  mo.appendChild(mk("div","",`<div style="font-weight:800;font-size:13px;color:#5a7a99;text-transform:uppercase;margin:16px 0 10px">All Evaluations</div>`));
+  evals.sort((a,b)=>new Date(b.eval_date)-new Date(a.eval_date)).forEach(e=>{
+    const row=div("row"); row.style.cssText="background:#f5faff;border:1.5px solid #b8d9f0;border-radius:10px;padding:12px 14px;margin-bottom:8px";
+    append(row,mk("span","",`<span style="font-weight:700">${fmt(e.eval_date)}</span>`),el("span",{class:`badge ${e.status}`},e.status),div("sp"),mk("span","",`<span style="font-weight:800;color:#2196f3;font-size:16px">${avg(e.scores)}/5</span>`));
+    mo.appendChild(row);
+  });
+  return mo;
+}
+
+function modalEvalDetail(ev,cs){
+  const mo=baseModal("Evaluation Details",true);
+  const m=S.mitras.find(x=>x.id===ev.mitra_id);
+  const hdr=div("row"); hdr.style.cssText="background:#d6ecfb;border-radius:12px;padding:14px;margin-bottom:18px";
+  append(hdr,av(m?.name||"?",44),(()=>{const d=div(""); d.innerHTML=`<div style="font-weight:800;font-size:15px">${m?.name||"Unknown"}</div><div style="font-size:12px;color:#5a7a99">${fmt(ev.eval_date)}</div>`; return d;})(),div("sp"),el("span",{class:`badge ${ev.status}`},ev.status));
+  mo.appendChild(hdr);
+  cs.forEach(cat=>{
+    mo.appendChild(mk("div","",`<div style="font-family:Poppins,sans-serif;font-weight:800;font-size:13px;color:#1565c0;margin-bottom:8px;margin-top:14px;text-transform:uppercase">${cat.name}</div>`));
+    cat.subs.forEach(sub=>{
+      const s=ev.scores[sub.id]||0;
+      const sr=div("srow"); sr.appendChild(mk("span","slbl",sub.name));
+      const dots=div(""); dots.style.display="flex"; dots.style.gap="6px";
+      [1,2,3,4,5].forEach(v=>{ const d=div(""); d.style.cssText=`width:30px;height:30px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:${v===s?(v>=4?"#00c853":v>=3?"#ff9800":"#f44336"):"#d6ecfb"};color:${v===s?"#fff":"#5a7a99"};font-weight:800;font-size:13px;border:1.5px solid ${v===s?"transparent":"#b8d9f0"}`; d.textContent=v; dots.appendChild(d); });
+      sr.appendChild(dots); mo.appendChild(sr);
+    });
+  });
+  if(ev.notes) mo.appendChild(mk("div","",`<div style="background:#f5faff;border:1.5px solid #b8d9f0;border-radius:10px;padding:14px;font-size:13px;color:#5a7a99;margin-top:14px">📝 ${ev.notes}</div>`));
+  return mo;
+}
+
+function modalEvalWizard(data,cs){
+  const mo=baseModal(data?.id?"Edit Evaluation":"New Evaluation",true);
+  const allSubs=cs.flatMap(c=>c.subs);
+  const initSc={}; allSubs.forEach(s=>initSc[s.id]=3);
+  const form={mitraId:data?.mitraId||data?.mitra_id||"",date:data?.eval_date||new Date().toISOString().split("T")[0],notes:data?.notes||"",id:data?.id||null,scores:{...initSc,...(data?.scores||{})}};
+  let step=1; const stepLabels=["Select Mitra","Score Competencies","Review & Submit"];
+  const body=div(""); mo.appendChild(body);
+
+  function redraw(){
+    body.innerHTML="";
+    // Wizard steps
+    const sw=div("wiz-steps");
+    stepLabels.forEach((label,i)=>{ const n=i+1,done=step>n,active=step===n; const si=div("wiz-step"); si.innerHTML=`<div class="wiz-c ${done?"done":active?"active":"pend"}">${done?"✓":n}</div><span class="wiz-l${active?" active":""}">${label}</span>${i<stepLabels.length-1?`<div class="wiz-line${done?" done":""}"></div>`:""}`; sw.appendChild(si); }); body.appendChild(sw);
+
+    if(step===1){
+      const f1=div("frow"); f1.appendChild(mk("label","fl2","Select Mitra *"));
+      const sel=el("select",{class:"fi-s"}); sel.innerHTML='<option value="">Choose a mitra…</option>';
+      S.mitras.forEach(m=>{ const o=el("option",{value:m.id},m.name+(m.employee_id?" ("+m.employee_id+")":"")); if(m.id===form.mitraId)o.selected=true; sel.appendChild(o); });
+      sel.onchange=()=>form.mitraId=sel.value; f1.appendChild(sel); body.appendChild(f1);
+      const f2=div("frow"); f2.appendChild(mk("label","fl2","Evaluation Date"));
+      const di=el("input",{class:"fi-s",type:"date",value:form.date}); di.onchange=()=>form.date=di.value; f2.appendChild(di); body.appendChild(f2);
+      const row=div("row"); row.style.marginTop="20px"; row.appendChild(div("sp"));
+      row.appendChild(btn("btn-p","Next: Score Competencies →",()=>{ if(!form.mitraId) return; step=2; redraw(); }));
+      body.appendChild(row);
+    } else if(step===2){
+      const info=div("info-bar"); info.textContent="💡 Score 1 (poor) to 5 (excellent). Tap a number."; body.appendChild(info);
+      cs.forEach(cat=>{
+        const ch=div(""); ch.style.marginBottom="20px";
+        ch.appendChild(mk("div","",`<div style="font-family:Poppins,sans-serif;font-weight:800;font-size:14px;color:#1565c0;margin-bottom:10px;padding:8px 12px;background:#d6ecfb;border-radius:8px">📁 ${cat.name}</div>`));
+        cat.subs.forEach(sub=>{
+          const sr=div("srow"); sr.appendChild(mk("span","slbl",sub.name));
+          const sbts=div("sbts");
+          [1,2,3,4,5].forEach(v=>{ const sb=btn(`sbt s${v}${form.scores[sub.id]===v?" act":""}`,String(v),()=>{ form.scores[sub.id]=v; redraw(); }); sbts.appendChild(sb); });
+          sr.appendChild(sbts); ch.appendChild(sr);
+        }); body.appendChild(ch);
+      });
+      const row=div("row"); row.style.marginTop="16px";
+      row.appendChild(btn("btn-g","← Back",()=>{ step=1; redraw(); })); row.appendChild(div("sp"));
+      row.appendChild(mk("span","",`<span style="font-size:13px;font-weight:700;color:#5a7a99">Overall: <span style="color:#2196f3;font-size:16px">${avg(form.scores)}</span>/5</span>`));
+      row.appendChild(btn("btn-p","Next: Review →",()=>{ step=3; redraw(); }));
+      body.appendChild(row);
+    } else if(step===3){
+      const m2=S.mitras.find(x=>x.id===form.mitraId);
+      const rev=div(""); rev.style.cssText="background:#f5faff;border:1.5px solid #b8d9f0;border-radius:12px;padding:16px;margin-bottom:16px";
+      const rh=div("row"); rh.style.marginBottom="12px";
+      append(rh,av(m2?.name||"?",44),(()=>{const d=div(""); d.innerHTML=`<div style="font-weight:800;font-size:15px">${m2?.name||"?"}</div><div style="font-size:12px;color:#5a7a99">${fmt(form.date)}</div>`; return d;})(),div("sp"),(()=>{const d=div(""); d.style.textAlign="right"; d.innerHTML=`<div style="font-size:11px;color:#5a7a99;font-weight:700">Overall Score</div><div style="font-size:28px;font-weight:800;color:#2196f3">${avg(form.scores)}<span style="font-size:14px;color:#5a7a99">/ 5</span></div>`; return d;})());
+      rev.appendChild(rh);
+      cs.forEach(cat=>{
+        rev.appendChild(mk("div","",`<div style="font-size:12px;font-weight:800;color:#1565c0;margin-bottom:6px;margin-top:10px">${cat.name}</div>`));
+        const grid=div(""); grid.style.cssText="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px";
+        cat.subs.forEach(sub=>{ const s=form.scores[sub.id]||0; const item=div(""); item.style.cssText=`display:flex;justify-content:space-between;align-items:center;background:#fff;border:1.5px solid #b8d9f0;border-radius:8px;padding:6px 10px`; item.innerHTML=`<span style="font-size:12px;font-weight:600">${sub.name}</span><span style="font-weight:800;font-size:14px;color:${s>=4?"#00c853":s>=3?"#ff9800":"#f44336"}">${s}</span>`; grid.appendChild(item); });
+        rev.appendChild(grid);
+      });
+      body.appendChild(rev);
+      const nf=div("frow"); nf.appendChild(mk("label","fl2","Notes (optional)"));
+      const ta=el("textarea",{class:"fta",placeholder:"Add observations…"}); ta.value=form.notes; ta.oninput=()=>form.notes=ta.value; nf.appendChild(ta); body.appendChild(nf);
+      const row=div("row"); row.style.marginTop="16px";
+      row.appendChild(btn("btn-g","← Back",()=>{ step=2; redraw(); })); row.appendChild(div("sp"));
+      const saveEv=async(status)=>{
+        try{
+          let eid=form.id;
+          if(eid){ await DB.editEval(eid,{...form,status,date:form.date}); await DB.delScores(eid); }
+          else{ const r=await DB.addEval({...form,officerId:S.user.id,status}); eid=r[0].id; }
+          await DB.addScores(eid,form.scores);
+          toast(status==="Submitted"?"Submitted 📤":"Draft saved 💾"); await load(); set({modal:null});
+        }catch(e){toast(e.message,"err");}
+      };
+      row.appendChild(btn("btn-g","💾 Save Draft",()=>saveEv("Draft")));
+      row.appendChild(btn("btn-p","📤 Submit for Approval",()=>saveEv("Submitted")));
+      body.appendChild(row);
+    }
+  }
+  redraw(); return mo;
+}
+
+// ══════════════════════
+// START
+// ══════════════════════
+draw();
+</script>
+</body>
+</html>
