@@ -178,7 +178,12 @@ const DB = {
 let S = { user:null, page:"dashboard", mob:false, modal:null, loading:false, evalTab:"all",
           mitras:[], cats:[], subs:[], evals:[], scores:[] };
 
-function set(patch){ Object.assign(S, typeof patch==="function"?patch(S):patch); draw(); }
+function set(patch){ Object.assign(S, typeof patch==="function"?patch(S):patch); window.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+} }
 
 // ══════════════════════
 // HELPERS
@@ -654,7 +659,12 @@ function modalEvalWizard(data,cs){
       const f2=div("frow"); f2.appendChild(mk("label","fl2","Evaluation Date"));
       const di=el("input",{class:"fi-s",type:"date",value:form.date}); di.onchange=()=>form.date=di.value; f2.appendChild(di); body.appendChild(f2);
       const row=div("row"); row.style.marginTop="20px"; row.appendChild(div("sp"));
-      row.appendChild(btn("btn-p","Next: Score Competencies →",()=>{ if(!form.mitraId) return; step=2; redraw(); }));
+      row.appendChild(btn("btn-p","Next: Score Competencies →",()=>{ if(!form.mitraId) return; step=2; rewindow.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+} }));
       body.appendChild(row);
     } else if(step===2){
       const info=div("info-bar"); info.textContent="💡 Score 1 (poor) to 5 (excellent). Tap a number."; body.appendChild(info);
@@ -664,14 +674,29 @@ function modalEvalWizard(data,cs){
         cat.subs.forEach(sub=>{
           const sr=div("srow"); sr.appendChild(mk("span","slbl",sub.name));
           const sbts=div("sbts");
-          [1,2,3,4,5].forEach(v=>{ const sb=btn(`sbt s${v}${form.scores[sub.id]===v?" act":""}`,String(v),()=>{ form.scores[sub.id]=v; redraw(); }); sbts.appendChild(sb); });
+          [1,2,3,4,5].forEach(v=>{ const sb=btn(`sbt s${v}${form.scores[sub.id]===v?" act":""}`,String(v),()=>{ form.scores[sub.id]=v; rewindow.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+} }); sbts.appendChild(sb); });
           sr.appendChild(sbts); ch.appendChild(sr);
         }); body.appendChild(ch);
       });
       const row=div("row"); row.style.marginTop="16px";
-      row.appendChild(btn("btn-g","← Back",()=>{ step=1; redraw(); })); row.appendChild(div("sp"));
+      row.appendChild(btn("btn-g","← Back",()=>{ step=1; rewindow.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+} })); row.appendChild(div("sp"));
       row.appendChild(mk("span","",`<span style="font-size:13px;font-weight:700;color:#5a7a99">Overall: <span style="color:#2196f3;font-size:16px">${avg(form.scores)}</span>/5</span>`));
-      row.appendChild(btn("btn-p","Next: Review →",()=>{ step=3; redraw(); }));
+      row.appendChild(btn("btn-p","Next: Review →",()=>{ step=3; rewindow.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+} }));
       body.appendChild(row);
     } else if(step===3){
       const m2=S.mitras.find(x=>x.id===form.mitraId);
@@ -689,7 +714,12 @@ function modalEvalWizard(data,cs){
       const nf=div("frow"); nf.appendChild(mk("label","fl2","Notes (optional)"));
       const ta=el("textarea",{class:"fta",placeholder:"Add observations…"}); ta.value=form.notes; ta.oninput=()=>form.notes=ta.value; nf.appendChild(ta); body.appendChild(nf);
       const row=div("row"); row.style.marginTop="16px";
-      row.appendChild(btn("btn-g","← Back",()=>{ step=2; redraw(); })); row.appendChild(div("sp"));
+      row.appendChild(btn("btn-g","← Back",()=>{ step=2; rewindow.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+} })); row.appendChild(div("sp"));
       const saveEv=async(status)=>{
         try{
           let eid=form.id;
@@ -704,13 +734,23 @@ function modalEvalWizard(data,cs){
       body.appendChild(row);
     }
   }
-  redraw(); return mo;
+  rewindow.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+} return mo;
 }
 
 // ══════════════════════
 // START
 // ══════════════════════
-draw();
+window.onerror=function(msg,src,line){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>JS Error</h2><p>"+msg+"</p><p>Line: "+line+"</p></div>";
+};
+try{ draw(); }catch(e){
+  document.getElementById("root").innerHTML="<div style='padding:40px;font-family:sans-serif;background:#fff;margin:40px;border-radius:12px;border:2px solid red'><h2 style='color:red'>Error</h2><p>"+e.message+"</p><pre style='font-size:11px;margin-top:8px'>"+e.stack+"</pre></div>";
+}
 </script>
 </body>
 </html>
